@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:leta_sasa/helpers/screen_navigation.dart';
 import 'package:leta_sasa/screens/details.dart';
+import 'package:leta_sasa/services/geolocator_service.dart';
 import 'package:leta_sasa/utils/app_colors.dart';
 
 class HomeCard extends StatelessWidget {
   final IconData icon;
   final String text;
+  final value;
   const HomeCard({
     Key key,
     @required this.icon,
-    @required this.text,
+    @required this.text, this.value,
   }) : super(key: key);
 
   @override
@@ -22,8 +25,9 @@ class HomeCard extends StatelessWidget {
         ),
         color: AppColors.appBar2Color,
         child: InkWell(
-          onTap: () {
-            ChangeScreen(context, DetailsPage());
+          onTap: () async{
+            Position position=await GeolocatorService().getLocation();
+            ChangeScreen(context, DetailsPage(value: value,position: position,));
           },
           splashColor: AppColors.scaffoldColor,
           child: Container(

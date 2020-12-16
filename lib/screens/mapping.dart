@@ -4,6 +4,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 class CustomMap extends StatelessWidget {
+  final Position position;
+  final name;
+
+  const CustomMap({Key key, this.position, this.name}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final currentPosition = Provider.of<Position>(context);
@@ -15,11 +19,18 @@ class CustomMap extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: LatLng(
-                  currentPosition.latitude, currentPosition.longitude
-                ),
+                target: LatLng(position.latitude,position.longitude,),
                 zoom: 12.0,
               ),
+              markers: {
+                Marker(
+                  infoWindow: InfoWindow(
+                    title: name,
+                  ),
+                  markerId: MarkerId("marker"),
+                  position: LatLng(position.latitude,position.longitude,),
+                )
+              },
               zoomGesturesEnabled: true,
             ),
           ),

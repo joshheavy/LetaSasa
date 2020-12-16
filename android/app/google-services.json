@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1062146106070",
+    "project_id": "leta-3e063",
+    "storage_bucket": "leta-3e063.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062146106070:android:e5bd13aec65ac9463c5f77",
+        "android_client_info": {
+          "package_name": "com.example.leta_sasa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062146106070-0j6mvo2dj6qjedvh85pis5o6ln9kthlv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.leta_sasa",
+            "certificate_hash": "85dc6f2fb03f0d4334bc47e3c9ef2794da2710ba"
+          }
+        },
+        {
+          "client_id": "1062146106070-ua09sbr38lvgvsh18c5u7otvpm4dtidj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVA4oXTIKf1eZOdRh1hf1l159khVXD5vg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062146106070-ua09sbr38lvgvsh18c5u7otvpm4dtidj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

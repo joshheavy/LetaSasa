@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:leta_sasa/helpers/screen_navigation.dart';
 import 'package:leta_sasa/screens/mapping.dart';
 import 'package:leta_sasa/utils/app_colors.dart';
@@ -6,12 +7,13 @@ import 'package:flutter_rating/flutter_rating.dart';
 
 class DetailCard extends StatelessWidget {
   final String title;
+  final Position position;
   final String distance;
   // final String ratings;
   const DetailCard({
     Key key,
     @required this.title,
-    @required this.distance,
+    @required this.distance, this.position,
     // @required this.ratings,
   }) : super(key: key);
 
@@ -19,7 +21,7 @@ class DetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        ChangeScreen(context, CustomMap());
+        ChangeScreen(context, CustomMap(name: title,position: position,));
       },
       child: Container(
         height: 200,
