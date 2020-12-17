@@ -4,6 +4,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:leta_sasa/helpers/screen_navigation.dart';
 import 'package:leta_sasa/screens/home.dart';
 import 'package:leta_sasa/services/auth_service.dart';
+import 'package:leta_sasa/utils/app_colors.dart';
+import 'package:leta_sasa/screens/Authentication/authentication.dart';
+
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -28,24 +31,103 @@ class _RegisterPageState extends State<RegisterPage> {
     return FormBuilder(
         key: _formKey,
         child: Scaffold(
+          backgroundColor: AppColors.appBarColor,
           body: loading?Center(child: CircularProgressIndicator()):Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FormBuilderTextField(
-                name: 'first_name',
-                decoration: InputDecoration(hintText: 'Frist Name'),
+              Text(
+                'Create Account',
+                style: TextStyle(
+                  color: AppColors.textColor,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ), 
               ),
-              FormBuilderTextField(
+              SizedBox(height: 40,),
+              Container(
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15)
+                ),
+                child: FormBuilderTextField(
+                  name: 'first_name',
+                  validator: FormBuilderValidators.required(context),
+                  decoration: InputDecoration(
+                    hintText: 'First Name',
+                    icon: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.person),
+                    )
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15)
+                ),
+                child: FormBuilderTextField(
                   name: 'last_name',
-                  decoration: InputDecoration(hintText: 'Last Name')),
-              FormBuilderTextField(
+                  validator:FormBuilderValidators.required(context),
+                  decoration: InputDecoration(
+                    hintText: 'Last Name',
+                    icon: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.person),
+                    )
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15)
+                ),
+                child: FormBuilderTextField(
                   name: 'email',
-                  decoration: InputDecoration(hintText: 'Email')),
-              FormBuilderTextField(
+                  validator: FormBuilderValidators.email(context),
+                  decoration: InputDecoration(
+                    hintText: 'Enter an Email',
+                    icon: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.mail),
+                    )
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15)
+                ),
+                child: FormBuilderTextField(
                   name: 'password',
-                  decoration: InputDecoration(hintText: 'password')),
+                  validator: FormBuilderValidators.required(context),
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your Password',
+                    icon: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.lock),
+                    )
+                  ),
+                ),
+              ),
               MaterialButton(
-                child: Text("Register"),
+                color: Color(0xff24d875),
+                height: 50,
+                minWidth: 200,
+                child: Text(
+                  "Register",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                  ),
+                ),
                 onPressed: () {
                   if (_formKey.currentState.saveAndValidate())
                     toggleLoading();
@@ -62,7 +144,38 @@ class _RegisterPageState extends State<RegisterPage> {
                       ChangeScreen(context, MyHomePage(user: value,));
                     });
                 },
-              )
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(height: 150),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already have an account?",
+                        style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 22,
+                        ),
+                      ),
+                      FlatButton(
+                        child: Text(
+                        'Sign In',
+                        style: TextStyle(
+                          color: AppColors.textColor,
+                          fontSize: 22,
+                          ),
+                        ),
+                        onPressed: () async {
+                          ChangeScreen(context, AuthenticationScreen());
+                        },
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ],
           ),
         ));

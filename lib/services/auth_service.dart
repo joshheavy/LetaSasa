@@ -1,6 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:leta_sasa/screens/home.dart';
 
 class AuthService {
   FirebaseAuth _auth = FirebaseAuth.instance;

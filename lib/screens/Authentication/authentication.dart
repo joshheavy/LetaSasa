@@ -6,7 +6,6 @@ import 'package:leta_sasa/screens/Authentication/register.dart';
 import 'package:leta_sasa/screens/home.dart';
 import 'package:leta_sasa/services/auth_service.dart';
 import 'package:leta_sasa/utils/app_colors.dart';
-import 'package:international_phone_input/international_phone_input.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   @override
@@ -17,58 +16,132 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   AuthService _auth = AuthService();
 
+  bool loading = false;
+
+  toggleLoading() {
+    setState(() {
+      loading = !loading;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.appBarColor,
+          elevation: 0.0,
+        ),
         backgroundColor: AppColors.appBarColor,
-        body: FormBuilder(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  'LETASASa',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30.0,
-                  ),
-                ),
-                FormBuilderTextField(name: 'email'),
-                FormBuilderTextField(name: 'password'),
-                MaterialButton(
-                  color: Color(0xff24d875),
-                  child: Text(
-                    'Register',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () async {
-                    ChangeScreen(context, RegisterPage());
-                  },
-                ),
-                MaterialButton(
-                  color: Color(0xff24d875),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () async {
-                    if (_formKey.currentState.saveAndValidate()) {
-                      UserCredential user = await _auth
-                          .signInWithEmailandPassword(
-                              email: _formKey.currentState.value['email'],
-                              password: _formKey.currentState.value['password'])
-                          .then((value) {
-                        ChangeScreenReplacement(
-                            context,
-                            MyHomePage(
-                              user: value,
-                            ));
-                        return value;
-                      });
-                    }
-                  },
-                )
-              ],
-            )));
+        body: loading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : FormBuilder(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'LETASASa',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30.0,
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: FormBuilderTextField(
+                            name: 'email',
+                            validator: FormBuilderValidators.email(context),
+                            decoration: InputDecoration(
+                                icon: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(Icons.mail),
+                                ),
+                                hintText: 'Enter an email'),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: FormBuilderTextField(
+                            name: 'password',
+                            validator: FormBuilderValidators.required(context),
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                icon: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(Icons.lock),
+                                ),
+                                hintText: 'Enter your password'),
+                          ),
+                        ),
+                        MaterialButton(
+                          color: Color(0xff24d875),
+                          height: 50,
+                          minWidth: 200,
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                            ),
+                          ),
+                          onPressed: () async {
+                            if (_formKey.currentState.saveAndValidate()) {
+                              toggleLoading();
+                              UserCredential user = await _auth
+                                  .signInWithEmailandPassword(
+                                      email:
+                                          _formKey.currentState.value['email'],
+                                      password: _formKey
+                                          .currentState.value['password'])
+                                  .then((value) {
+                                toggleLoading();
+                                ChangeScreenReplacement(
+                                    context,
+                                    MyHomePage(
+                                      user: value,
+                                    ));
+                                // return value;
+                              });
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Don't have an account?",
+                          style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontSize: 22,
+                          ),
+                        ),
+                        FlatButton(
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                              color: AppColors.textColor,
+                              fontSize: 22,
+                            ),
+                          ),
+                          onPressed: () async {
+                            ChangeScreen(context, RegisterPage());
+                          },
+                        )
+                      ],
+                    ),
+                  ],
+                )));
   }
 }
