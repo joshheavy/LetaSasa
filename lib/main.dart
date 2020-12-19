@@ -4,14 +4,13 @@ import 'package:leta_sasa/services/geolocator_service.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  
   final locatorService = GeolocatorService();
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'LETASASa',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: IntroScreen(),
@@ -28,6 +26,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-

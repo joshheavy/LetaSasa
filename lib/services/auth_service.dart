@@ -24,6 +24,33 @@ class AuthService {
       throw (s);
     }
   }
+
+  // sign out
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   // Future createUserWithPhone(String phone, BuildContext context) async {
   //   await _auth.verifyPhoneNumber(
   //     phoneNumber: phone,

@@ -110,7 +110,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                     MyHomePage(
                                       user: value,
                                     ));
-                                // return value;
+                                return value;
                               });
                             }
                           },

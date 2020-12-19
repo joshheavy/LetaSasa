@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:leta_sasa/utils/app_colors.dart';
 import 'package:leta_sasa/widgets/home_card.dart';
+import 'package:leta_sasa/widgets/custom_drawer.dart';
 
 class MyHomePage extends StatelessWidget {
   final UserCredential user;
@@ -23,8 +24,10 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
+      drawer: CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             HomeCard(icon: FontAwesomeIcons.cocktail, text: 'Drinks',value:'Drinks' ,),
             HomeCard(icon: FontAwesomeIcons.leaf, text: 'Miraa',value:'Miraa' ,),
